@@ -61,10 +61,19 @@ public class Test {
 		   List<Lecture_object_has_student> list_obj_stud = new ArrayList<Lecture_object_has_student>();
 		   list_obj_stud=losc.list_object_has_student(le.getIdLectureObejct());
 		   for(Lecture_object_has_student lectobj:list_obj_stud){
-			   
+			   boolean test_Group= true;
+			   List<Lecture_object_has_student> list_stud_object = new ArrayList<Lecture_object_has_student>();  
+			   list_stud_object=losc.list_Object(lectobj.getId_student_group());
+			   for(Lecture_object_has_student l:list_stud_object){
+				   Sheet_Controler shee= new Sheet_Controler();
+				   Sheet she= shee.object_lecture(l.getId_lecture_object());
+				   if(idDay == she.getIdDay() && idTimeSlot== she.getIdTimeSlot()){
+					   return false;
+				   }
+			   }
 		   }
 		}
-		return false;
+		return true;
 	}
 
 	 public static Connection getConnection() throws Exception {

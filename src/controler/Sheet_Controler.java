@@ -59,5 +59,22 @@ public List<Sheet> sheet_listt_time_slot(int idTimeSlot, int idDay) throws Excep
 	return retValue;
 	
 }
+public Sheet object_lecture(int idlectureobject) throws Exception{
+	Sheet retValue = new Sheet();
+	Test t= new Test();
+	 Connection conn= t.getConnection();
+	  Statement stmt =(Statement) conn.createStatement();
+	  ResultSet rs;
+	  rs = stmt.executeQuery("SELECT * FROM sheet1 where idLectureObject="+idlectureobject);
+	  while(rs.next()){
+		 
+		  retValue.setIdClassroom(rs.getInt("IdClassroom"));
+		  retValue.setIdDay(rs.getInt("IdDay"));
+		  retValue.setIdLectureObejct(rs.getInt("idLectureObject"));
+		  retValue.setIdLecturer(rs.getInt("idLecturer"));
+		  retValue.setIdTimeSlot(rs.getInt("idTimeSlot"));
+	  }
+	return retValue;
+}
 
 }

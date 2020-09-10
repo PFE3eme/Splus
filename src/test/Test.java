@@ -50,6 +50,9 @@ public class Test {
     	  }
     	   test_group_lecturer= Test_groug(list_neig,list_sheet.get(i).getIdDay(),list_sheet.get(i).getIdTimeSlot() );
     	   
+    	   if(test_group_lecturer){
+    		   // list tabu 
+    	   }
     	   System.out.println(list_sheet.get(i).getIdLectureObejct());
     	   
        }
@@ -73,7 +76,7 @@ public class Test {
 			   }
 		   }
 		}
-		return true;
+		return true ;
 	}
 
 	 public static Connection getConnection() throws Exception {

@@ -33,6 +33,7 @@ public List<Sheet> sheet_listt() throws Exception{
 		  retValue.add(inst_sheet);
 		
 	  }
+	  conn.close();
 	return retValue;
 	
 }
@@ -56,6 +57,7 @@ public List<Sheet> sheet_listt_time_slot(int idTimeSlot, int idDay) throws Excep
 		  retValue.add(inst_sheet);
 		
 	  }
+	  conn.close();
 	return retValue;
 	
 }
@@ -74,6 +76,7 @@ public Sheet object_lecture(int idlectureobject) throws Exception{
 		  retValue.setIdLecturer(rs.getInt("idLecturer"));
 		  retValue.setIdTimeSlot(rs.getInt("idTimeSlot"));
 	  }
+	  conn.close();
 	return retValue;
 }
 

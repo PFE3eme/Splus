@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import controler.Blacklist_lecturer_Controller;
+import controler.Blacklist_room_Controller;
+import controler.Blacklist_student_group_Controller;
 import controler.Sheet_Controler;
 import controler.lecture_object_has_student_controlle;
 import Model.Lecture_object_has_student;
@@ -16,6 +19,8 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		Sheet_Controler sh= new Sheet_Controler();
 	    List<Sheet> list_sheet= new ArrayList<Sheet>();
+	    Blacklist_lecturer_Controller black_Lec= new Blacklist_lecturer_Controller(); 
+	    Blacklist_room_Controller black_room = new Blacklist_room_Controller();
         list_sheet=sh.sheet_listt();
         int j=0;
         int k=4;
@@ -48,8 +53,17 @@ public class Test {
     	 
     	    j++;
     	  }
-    	   test_group_lecturer= Test_groug(list_neig,list_sheet.get(i).getIdDay(),list_sheet.get(i).getIdTimeSlot() );
+    	   test_group_lecturer= Test_groug(list_neig,list_sheet.get(i).getIdDay(),list_sheet.get(i).getIdTimeSlot(),list_sheet.get(i));
     	   
+    	   for(Sheet neig: list_neig){
+    		   boolean test_blacklist_lecture=false;
+    		   boolean test_blacklist_room= false;
+    		   test_blacklist_lecture= black_Lec.black_list_lecture_test(neig,list_sheet.get(i).getIdDay(), list_sheet.get(i).getIdTimeSlot());
+    		   test_blacklist_lecture = black_Lec.black_list_lecture_test(list_sheet.get(i), neig.getIdDay(),neig.getIdTimeSlot());
+    		   test_blacklist_room= black_room.black_List_room(neig.getIdClassroom(), list_sheet.get(i).getIdDay(), list_sheet.get(i).getIdTimeSlot());
+    		   test_blacklist_room= black_room.black_List_room(list_sheet.get(i).getIdClassroom(),neig.getIdDay(),neig.getIdTimeSlot());
+    		   
+    	   }
     	   if(test_group_lecturer){
     		   // list tabu 
     	   }
@@ -58,16 +72,45 @@ public class Test {
        }
 		
 	}
-	public static boolean Test_groug( List<Sheet> list_Lecture, int idDay, int idTimeSlot) throws Exception{
+	
+	public static boolean Test_groug( List<Sheet> list_Lecture, int idDay, int idTimeSlot, Sheet sheet) throws Exception{
 		lecture_object_has_student_controlle losc= new lecture_object_has_student_controlle();
+		Blacklist_student_group_Controller  black_student_group= new Blacklist_student_group_Controller();
 		for(Sheet le:list_Lecture){
-		   List<Lecture_object_has_student> list_obj_stud = new ArrayList<Lecture_object_has_student>();
-		   list_obj_stud=losc.list_object_has_student(le.getIdLectureObejct());
-		   for(Lecture_object_has_student lectobj:list_obj_stud){
-			   boolean test_Group= true;
-			   List<Lecture_object_has_student> list_stud_object = new ArrayList<Lecture_object_has_student>();  
+		   boolean test_Group= false;
+		   
+			   List<Lecture_object_has_student> list_stud_object = new ArrayList<Lecture_object_has_student>(); 
+			   list_stud_object=losc.list_student(le.getIdLectureObejct());
+			   for(Lecture_object_has_student lohs:list_stud_object){
+				   test_Group=false;
+				   test_Group = black_student_group.black_list_group(lohs.getId_student_group(),le.getIdDay(),le.getIdTimeSlot());
+			   }
+			   list_stud_object.clear();
+			   list_stud_object= losc.list_student(sheet.getIdLectureObejct());
+			   for(Lecture_object_has_student lohs:list_stud_object){
+				   test_Group=false;
+				   test_Group=black_student_group.black_list_group(lohs.getId_student_group(), le.getIdDay(), le.getIdTimeSlot());
+			   }
+			   
+			   
+		   
+		   for(Lecture_object_has_student lectobj:list_stud_object){
+
+			 
 			   list_stud_object=losc.list_Object(lectobj.getId_student_group());
+			   
 			   for(Lecture_object_has_student l:list_stud_object){
+				
+				   Sheet_Controler shee= new Sheet_Controler();
+				   Sheet she= shee.object_lecture(l.getId_lecture_object());
+				   if(idDay == she.getIdDay() && idTimeSlot== she.getIdTimeSlot()){
+					   return false;
+				   }
+			   }
+			   list_stud_object.clear();
+			   list_stud_object=losc.list_Object(sheet.getIdLecturer());
+			   for(Lecture_object_has_student l:list_stud_object){
+					
 				   Sheet_Controler shee= new Sheet_Controler();
 				   Sheet she= shee.object_lecture(l.getId_lecture_object());
 				   if(idDay == she.getIdDay() && idTimeSlot== she.getIdTimeSlot()){

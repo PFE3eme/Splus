@@ -28,6 +28,7 @@ public class Room_type_Controller {
 			;
 			  retValue.add(inst_room_type);
 		  }
+		  conn.close();
 		return retValue;
 		
 	}

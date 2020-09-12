@@ -29,8 +29,22 @@ public class Blacklist_student_group_Controller {
 			  inst_blacklist_student_group.setId_time_slot(rs.getInt("id_time_slot"));
 			  retValue.add(inst_blacklist_student_group);
 		  }
+		  conn.close();
 		return retValue;
 		
 	}
-
+public boolean black_list_group(int id_student_group, int id_day, int id_time_Slot) throws Exception{
+	boolean retValue=false;
+	Test t= new Test();
+    Connection conn= t.getConnection();
+	  Statement stmt =(Statement) conn.createStatement();
+	  ResultSet rs;
+	  rs = stmt.executeQuery("SELECT * FROM blacklist_student_group where id_Student_group ="+ id_student_group +" and id_day ="+ id_day +" and id_time_slot ="+ id_time_Slot);
+	  while( rs.next()){
+		  retValue=true;
+		  break;
+	  }
+	  
+	return retValue;
+}
 }

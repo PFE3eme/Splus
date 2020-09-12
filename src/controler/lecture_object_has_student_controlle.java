@@ -35,6 +35,7 @@ Connection conn= t.getConnection();
 	 
 	
   }
+  conn.close();
 return retValue;
 }
 public List<Lecture_object_has_student> list_Object(int id_student_group) throws Exception{
@@ -57,6 +58,30 @@ Connection conn= t.getConnection();
 	 
 	
   }
+  conn.close();
+return retValue;
+}
+public List<Lecture_object_has_student> list_student(int id_lecture_obejct) throws Exception{
+List<Lecture_object_has_student> retValue = new ArrayList<Lecture_object_has_student>();
+Test t= new Test();
+Connection conn= t.getConnection();
+  Statement stmt =(Statement) conn.createStatement();
+  ResultSet rs;
+  rs = stmt.executeQuery("SELECT * FROM lecture_object_has_studen where id_lecture_object="+id_lecture_obejct);
+  
+
+  while(rs.next()){
+	  Lecture_object_has_student ins_obj_stud= new Lecture_object_has_student();
+	  ins_obj_stud.setId_lecture_object(rs.getInt("id_lecture_object"));
+	  ins_obj_stud.setId_student_group(rs.getInt("id_student_group"));
+	  ins_obj_stud.setNum_participants(rs.getInt("num_participants"));
+	  ins_obj_stud.setIs_mandatory(rs.getInt("is_mandatory"));
+	  ins_obj_stud.setPriority_assignment(rs.getInt("priority_assignment"));
+	retValue.add(ins_obj_stud);
+	 
+	
+  }
+  conn.close();
 return retValue;
 }
 }

@@ -29,6 +29,7 @@ public class Room_Controller {
 			  inst_room.setId_room_type(rs.getInt("id_time_slot"));
 			  retValue.add(inst_room);
 		  }
+		  conn.close();
 		return retValue;
 		
 	}

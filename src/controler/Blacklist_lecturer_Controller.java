@@ -7,6 +7,7 @@ import java.util.List;
 
 import test.Test;
 import Model.Blacklist_lecturer;
+import Model.Sheet;
 
 import com.mysql.jdbc.Statement;
 
@@ -29,8 +30,26 @@ public class Blacklist_lecturer_Controller {
 
 			  retValue.add(inst_blacklist_lecturer);
 		  }
+		  conn.close();
 		return retValue;
 		
 	}
+public  boolean black_list_lecture_test (Sheet neig, int IdDay, int IdTimeSlot) throws Exception{
+	boolean retValue=false;
+	Test t= new Test();
+	Connection conn= t.getConnection();
+	Statement  stmt= (Statement)  conn.createStatement();
+	ResultSet rs; 
+	rs= stmt.executeQuery("Select * From blacklist_lecturer where id_lecturer = "+ neig.getIdLecturer()+" and id_day ="+ neig.getIdDay() +" and id_time_slot ="+ neig.getIdTimeSlot());
 
+	while(rs.next()){
+		retValue= true;
+		break;
+	}
+
+
+	 conn.close();
+	return retValue;
+	
+}
 }

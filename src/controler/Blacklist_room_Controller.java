@@ -30,8 +30,22 @@ public class Blacklist_room_Controller {
 
 			  retValue.add(inst_blacklist_room);
 		  }
+		  conn.close();
 		return retValue;
 		
+	}
+	public boolean black_List_room(int id_room, int idDay, int idTimeSlot) throws Exception{
+		boolean retValue= false;
+		Test t= new Test();
+	    Connection conn= t.getConnection();
+		  Statement stmt =(Statement) conn.createStatement();
+		  ResultSet rs;
+		  rs = stmt.executeQuery("SELECT * FROM blacklist_room where id_room ="+ id_room +" and id_day ="+ idDay + " and  id_time_slot ="+ idTimeSlot);
+		while(rs.next()){
+			retValue= true;
+			break;
+		}
+		  return retValue;
 	}
 
 }

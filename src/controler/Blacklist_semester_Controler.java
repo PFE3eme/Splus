@@ -29,6 +29,7 @@ public class Blacklist_semester_Controler {
 			  inst_blacklist_semester.setId_time_slot(rs.getInt("id_time_slot"));
 			  retValue.add(inst_blacklist_semester);
 		  }
+		  conn.close();
 		return retValue;
 		
 	}

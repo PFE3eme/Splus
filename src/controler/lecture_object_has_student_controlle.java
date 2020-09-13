@@ -10,6 +10,7 @@ import test.Test;
 
 import com.mysql.jdbc.Statement;
 
+import Connecter.Connecter;
 import Model.Lecture_object_has_student;
 import Model.Sheet;
 
@@ -17,10 +18,9 @@ public class lecture_object_has_student_controlle {
 
 public List<Lecture_object_has_student> list_object_has_student(int id_lecture_object) throws Exception{
 List<Lecture_object_has_student> retValue = new ArrayList<Lecture_object_has_student>();
-Test t= new Test();
-Connection conn= t.getConnection();
-  Statement stmt =(Statement) conn.createStatement();
-  ResultSet rs;
+Connecter conn=new Connecter();
+Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
+ResultSet rs;
   rs = stmt.executeQuery("SELECT * FROM lecture_object_has_studen where id_lecture_object="+id_lecture_object);
   
 
@@ -35,15 +35,14 @@ Connection conn= t.getConnection();
 	 
 	
   }
-  conn.close();
+  conn.ObtenirConnextion().close();
 return retValue;
 }
 public List<Lecture_object_has_student> list_Object(int id_student_group) throws Exception{
 List<Lecture_object_has_student> retValue = new ArrayList<Lecture_object_has_student>();
-Test t= new Test();
-Connection conn= t.getConnection();
-  Statement stmt =(Statement) conn.createStatement();
-  ResultSet rs;
+Connecter conn=new Connecter();
+Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
+ResultSet rs;
   rs = stmt.executeQuery("SELECT * FROM lecture_object_has_studen where id_student_group="+id_student_group);
   
 
@@ -58,15 +57,14 @@ Connection conn= t.getConnection();
 	 
 	
   }
-  conn.close();
+  conn.ObtenirConnextion().close();
 return retValue;
 }
 public List<Lecture_object_has_student> list_student(int id_lecture_obejct) throws Exception{
 List<Lecture_object_has_student> retValue = new ArrayList<Lecture_object_has_student>();
-Test t= new Test();
-Connection conn= t.getConnection();
-  Statement stmt =(Statement) conn.createStatement();
-  ResultSet rs;
+Connecter conn=new Connecter();
+Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
+ResultSet rs;
   rs = stmt.executeQuery("SELECT * FROM lecture_object_has_studen where id_lecture_object="+id_lecture_obejct);
   
 
@@ -81,7 +79,7 @@ Connection conn= t.getConnection();
 	 
 	
   }
-  conn.close();
+  conn.ObtenirConnextion().close();
 return retValue;
 }
 }

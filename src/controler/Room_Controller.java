@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.Test;
+import Connecter.Connecter;
 import Model.Blacklist_student_group;
 import Model.Room;
 
@@ -15,9 +16,8 @@ public class Room_Controller {
 
 	public List<Room> Blacklist_lectuter_listt() throws Exception{
 		List<Room> retValue = new ArrayList<Room>();
-		Test t= new Test();
-	    Connection conn= t.getConnection();
-		  Statement stmt =(Statement) conn.createStatement();
+		Connecter conn=new Connecter();
+		  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 		  ResultSet rs;
 		  rs = stmt.executeQuery("SELECT * FROM room");
 		  
@@ -29,7 +29,7 @@ public class Room_Controller {
 			  inst_room.setId_room_type(rs.getInt("id_time_slot"));
 			  retValue.add(inst_room);
 		  }
-		  conn.close();
+		  conn.ObtenirConnextion().close();
 		return retValue;
 		
 	}

@@ -8,6 +8,7 @@ import java.util.List;
 import controler.Blacklist_lecturer_Controller;
 import controler.Blacklist_room_Controller;
 import controler.Blacklist_student_group_Controller;
+import controler.Lecturer_semester_Controller;
 import controler.Sheet_Controler;
 import controler.lecture_object_has_student_controlle;
 import Model.Lecture_object_has_student;
@@ -21,7 +22,8 @@ public class Test {
 	    List<Sheet> list_sheet= new ArrayList<Sheet>();
 	    Blacklist_lecturer_Controller black_Lec= new Blacklist_lecturer_Controller(); 
 	    Blacklist_room_Controller black_room = new Blacklist_room_Controller();
-        list_sheet=sh.sheet_listt();
+	    Lecturer_semester_Controller lsc= new Lecturer_semester_Controller();
+	    list_sheet=sh.sheet_listt();
         int j=0;
         int k=4;
         boolean test_group_lecturer= false;
@@ -62,11 +64,15 @@ public class Test {
     		   test_blacklist_lecture = black_Lec.black_list_lecture_test(list_sheet.get(i), neig.getIdDay(),neig.getIdTimeSlot());
     		   test_blacklist_room= black_room.black_List_room(neig.getIdClassroom(), list_sheet.get(i).getIdDay(), list_sheet.get(i).getIdTimeSlot());
     		   test_blacklist_room= black_room.black_List_room(list_sheet.get(i).getIdClassroom(),neig.getIdDay(),neig.getIdTimeSlot());
-    		   
+    		   if(test_group_lecturer){
+        		   int sc10,sc11;
+        		   
+        		   sc10=lsc.score_sc1(neig);
+        		   sc11= lsc.score_sc1(list_sheet.get(i));
+        		   // list tabu 
+        	   }
     	   }
-    	   if(test_group_lecturer){
-    		   // list tabu 
-    	   }
+    	  
     	   System.out.println(list_sheet.get(i).getIdLectureObejct());
     	   
        }

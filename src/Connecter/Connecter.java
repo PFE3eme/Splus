@@ -15,7 +15,7 @@ catch(ClassNotFoundException e) {
 System.out.println(e);}
 
 try {
-con=DriverManager.getConnection("jdbc:mysql://localhost:3306/splus","root","");}
+con=DriverManager.getConnection("jdbc:mysql://localhost:3306/splus+","root","");}
 catch(SQLException e){System.out.println(e);}
 
 }

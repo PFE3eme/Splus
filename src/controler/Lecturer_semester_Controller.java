@@ -47,12 +47,43 @@ public int score_sc1(Sheet solution) throws SQLException{
 	  }
 	  
 
-	  
-	  
-	  
 	
 	
 	return retValue;
 }
+
+public int score_sc2(Sheet solution, Sheet neighbour) throws SQLException{
+		int retValue=0;
+		Connecter conn=new Connecter();
+		  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
+		  ResultSet rs;
+		  rs = stmt.executeQuery("SELECT min_distance_between_lecture_objects_within_a_day FROM lecturer_semester  where id_lecturer= " +solution.getIdLecturer()+")"
+		  		+ "LIMIT 1");
+		  
+		  if (rs.min_distance_between_lecture_objects_within_a_day =0) {
+			  return 1;
+					
+		}
+		  else if (rs.min_distance_between_lecture_objects_within_a_day =1) {
+			  if (solution.getIdLecturer()== neighbour.getIdLecturer()) {
+				  if (solution.getIdDay() == neighbour.getIdDay()) {
+					  if (solution.getIdTimeSlot()!= neighbour.getIdTimeSlot() - 1 || 
+						  solution.getIdTimeSlot()!= neighbour.getIdTimeSlot() + 1 ) {
+						return retValue;
+					}
+					
+				}
+				  else {
+					  return 1;
+				  }
+				
+			}
+			  else {
+				  return 1;
+			  }
+		  }
+
+}  
+
 
 }

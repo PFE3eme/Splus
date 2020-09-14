@@ -8,7 +8,7 @@ import java.util.List;
 
 import test.Test;
 
-import com.mysql.jdbc.Statement;
+import java.sql.*;
 
 import Connecter.Connecter;
 import Model.Sheet;

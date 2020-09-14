@@ -9,6 +9,7 @@ import controler.Blacklist_lecturer_Controller;
 import controler.Blacklist_room_Controller;
 import controler.Blacklist_student_group_Controller;
 import controler.Lecturer_semester_Controller;
+import controler.LectureSemesterController;
 import controler.Sheet_Controler;
 import controler.lecture_object_has_student_controlle;
 import Model.Lecture_object_has_student;
@@ -23,6 +24,7 @@ public class Test {
 	    Blacklist_lecturer_Controller black_Lec= new Blacklist_lecturer_Controller(); 
 	    Blacklist_room_Controller black_room = new Blacklist_room_Controller();
 	    Lecturer_semester_Controller lsc= new Lecturer_semester_Controller();
+	    LectureSemesterController LectureSC = new LectureSemesterController();
 	    list_sheet=sh.sheet_listt();
         int j=0;
         int k=4;
@@ -65,10 +67,11 @@ public class Test {
     		   test_blacklist_room= black_room.black_List_room(neig.getIdClassroom(), list_sheet.get(i).getIdDay(), list_sheet.get(i).getIdTimeSlot());
     		   test_blacklist_room= black_room.black_List_room(list_sheet.get(i).getIdClassroom(),neig.getIdDay(),neig.getIdTimeSlot());
     		   if(test_group_lecturer){
-        		   int sc10,sc11;
+        		   int sc10,sc11,sc12;
         		   
         		   sc10=lsc.score_sc1(neig);
         		   sc11= lsc.score_sc1(list_sheet.get(i));
+        		   sc12= lsc.score_sc2(list_sheet.get(i), neig);
         		   // list tabu 
         	   }
     	   }
@@ -131,7 +134,7 @@ public class Test {
 	 public static Connection getConnection() throws Exception {
 		  try{
 			  String driver ="com.mysql.jdbc.Driver";
-			  String url ="jdbc:mysql://localhost:3306/splus";
+			  String url ="jdbc:mysql://localhost:3306/splus+";
 			  String username="root";
 			  String password="";
 			  Connection conn= DriverManager.getConnection(url,username,password);

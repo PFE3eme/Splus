@@ -125,7 +125,7 @@ public class Test {
 	 public static Connection getConnection() throws Exception {
 		  try{
 			  String driver ="com.mysql.jdbc.Driver";
-			  String url ="jdbc:mysql://localhost:3306/splus+";
+			  String url ="jdbc:mysql://localhost:3306/splus";
 			  String username="root";
 			  String password="";
 			  Connection conn= DriverManager.getConnection(url,username,password);

@@ -10,14 +10,14 @@ import test.Test;
 
 import com.mysql.jdbc.Statement;
 
+import Connecter.Connecter;
 import Model.Sheet;
 public class Sheet_Controler {
 
 public List<Sheet> sheet_listt() throws Exception{
 	List<Sheet> retValue = new ArrayList<Sheet>();
-	Test t= new Test();
-    Connection conn= t.getConnection();
-	  Statement stmt =(Statement) conn.createStatement();
+	Connecter conn=new Connecter();
+	  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 	  ResultSet rs;
 	  rs = stmt.executeQuery("SELECT * FROM sheet1");
 	  
@@ -33,15 +33,14 @@ public List<Sheet> sheet_listt() throws Exception{
 		  retValue.add(inst_sheet);
 		
 	  }
-	  conn.close();
+	
 	return retValue;
 	
 }
 public List<Sheet> sheet_listt_time_slot(int idTimeSlot, int idDay) throws Exception{
 	List<Sheet> retValue = new ArrayList<Sheet>();
-	Test t= new Test();
-    Connection conn= t.getConnection();
-	  Statement stmt =(Statement) conn.createStatement();
+	Connecter conn=new Connecter();
+	  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 	  ResultSet rs;
 	  rs = stmt.executeQuery("SELECT * FROM sheet1 where idTimeSlot="+idTimeSlot+" and idDay = "+idDay);
 	  
@@ -57,15 +56,14 @@ public List<Sheet> sheet_listt_time_slot(int idTimeSlot, int idDay) throws Excep
 		  retValue.add(inst_sheet);
 		
 	  }
-	  conn.close();
+	  conn.ObtenirConnextion().close();
 	return retValue;
 	
 }
 public Sheet object_lecture(int idlectureobject) throws Exception{
 	Sheet retValue = new Sheet();
-	Test t= new Test();
-	 Connection conn= t.getConnection();
-	  Statement stmt =(Statement) conn.createStatement();
+	Connecter conn=new Connecter();
+	  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 	  ResultSet rs;
 	  rs = stmt.executeQuery("SELECT * FROM sheet1 where idLectureObject="+idlectureobject);
 	  while(rs.next()){
@@ -76,7 +74,7 @@ public Sheet object_lecture(int idlectureobject) throws Exception{
 		  retValue.setIdLecturer(rs.getInt("idLecturer"));
 		  retValue.setIdTimeSlot(rs.getInt("idTimeSlot"));
 	  }
-	  conn.close();
+	  conn.ObtenirConnextion().close();
 	return retValue;
 }
 

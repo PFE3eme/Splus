@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.Test;
+import Connecter.Connecter;
 import Model.Blacklist_semester;
 import Model.Blacklist_student_group;
 
@@ -15,9 +16,8 @@ public class Blacklist_student_group_Controller {
 
 	public List<Blacklist_student_group> Blacklist_lectuter_listt() throws Exception{
 		List<Blacklist_student_group> retValue = new ArrayList<Blacklist_student_group>();
-		Test t= new Test();
-	    Connection conn= t.getConnection();
-		  Statement stmt =(Statement) conn.createStatement();
+		Connecter conn=new Connecter();
+		  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 		  ResultSet rs;
 		  rs = stmt.executeQuery("SELECT * FROM blacklist_student_group");
 		  
@@ -29,22 +29,21 @@ public class Blacklist_student_group_Controller {
 			  inst_blacklist_student_group.setId_time_slot(rs.getInt("id_time_slot"));
 			  retValue.add(inst_blacklist_student_group);
 		  }
-		  conn.close();
+		  conn.ObtenirConnextion().close();
 		return retValue;
 		
 	}
 public boolean black_list_group(int id_student_group, int id_day, int id_time_Slot) throws Exception{
 	boolean retValue=false;
-	Test t= new Test();
-    Connection conn= t.getConnection();
-	  Statement stmt =(Statement) conn.createStatement();
+	Connecter conn=new Connecter();
+	  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 	  ResultSet rs;
 	  rs = stmt.executeQuery("SELECT * FROM blacklist_student_group where id_Student_group ="+ id_student_group +" and id_day ="+ id_day +" and id_time_slot ="+ id_time_Slot);
 	  while( rs.next()){
 		  retValue=true;
 		  break;
 	  }
-	  
+	  conn.ObtenirConnextion().close(); 
 	return retValue;
 }
 }

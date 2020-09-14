@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.Test;
+import Connecter.Connecter;
 import Model.Blacklist_semester;
 import Model.Blacklist_room;
 
@@ -15,10 +16,10 @@ public class Blacklist_semester_Controler {
 
 	public List<Blacklist_semester> Blacklist_lectuter_listt() throws Exception{
 		List<Blacklist_semester> retValue = new ArrayList<Blacklist_semester>();
-		Test t= new Test();
-	    Connection conn= t.getConnection();
-		  Statement stmt =(Statement) conn.createStatement();
+		Connecter conn=new Connecter();
+		  Statement stmt = (Statement) conn.ObtenirConnextion().createStatement();
 		  ResultSet rs;
+	  
 		  rs = stmt.executeQuery("SELECT * FROM blacklist_semester");
 		  
 		  Blacklist_semester inst_blacklist_semester= new Blacklist_semester();
@@ -29,7 +30,7 @@ public class Blacklist_semester_Controler {
 			  inst_blacklist_semester.setId_time_slot(rs.getInt("id_time_slot"));
 			  retValue.add(inst_blacklist_semester);
 		  }
-		  conn.close();
+		  conn.ObtenirConnextion().close();
 		return retValue;
 		
 	}
